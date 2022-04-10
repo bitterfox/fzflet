@@ -14,3 +14,6 @@ fzflet requires enhanced fzf features implemented in https://github.com/bitterfo
 - 1password CLI v1
 - IntelliJ
   - recent projects
+- Jira
+  - list tickets
+  - preview feature requires go-jira cli https://github.com/go-jira/jira
