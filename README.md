@@ -12,3 +12,5 @@ fzflet requires enhanced fzf features implemented in https://github.com/bitterfo
   - show
 - ag (require enhanced ag https://github.com/bitterfox/the_silver_searcher/tree/develop)
 - 1password CLI v1
+- IntelliJ
+  - recent projects
