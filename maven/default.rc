@@ -1,0 +1,12 @@
+export FZFLET_MAVEN_DEFAULT_BATCH_SIZE=50
+
+export FZFLET_MAVEN_DEFAULT_URL=https://search.maven.org
+export FZFLET_MAVEN_DEFAULT_EXTRA_QUERY=
+export FZFLET_MAVEN_DEFAULT_AUTH=
+export FZFLET_MAVEN_DEFAULT_USER=
+export FZFLET_MAVEN_DEFAULT_PASSWORD=
+# export FZFLET_MAVEN_DEFAULT_OPEN_URL=https://search.maven.org/artifact/{1}/{2}/{3}/pom
+export FZFLET_MAVEN_DEFAULT_OPEN_URL=https://mvnrepository.com/artifact/{1}/{2}/{3}
+
+export FZFLET_MAVEN_DEFAULT_SEARCH=maven_search.sh
+export FZFLET_MAVEN_DEFAULT_PREVIEW=maven_preview.sh
