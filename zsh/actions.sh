@@ -8,6 +8,12 @@ while read line; do
     . $line
 done < <(find $fzflet_zsh_basedir/.. | grep "fzf_.*_actions\.zsh")
 
+for extra in $FZFLET_ZSH_ACTIONS_EXTRA_PATHS; do
+    while read line; do
+        . $line
+    done < <(find $FZFLET_ZSH_ACTIONS_EXTRA_PATHS | grep "fzf_.*_actions\.zsh")
+done
+
 select_action() {
     max_category_name_len=0
     print -l ${(ok)functions[(I)fzf_*_action]} | while read line; do
