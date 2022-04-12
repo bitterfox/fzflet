@@ -1,9 +1,9 @@
 #!/bin/zsh
 
-basedir=`dirname $0`
+fzflet_ag_basedir=`dirname $0`
 
 fzf_ag_widget() {
-    $basedir/fzf_ag.sh |
+    $fzflet_ag_basedir/fzf_ag.sh |
         awk -F: '{print $1}' |
         while read item; do
             LBUFFER="${LBUFFER}${(q)item} "
