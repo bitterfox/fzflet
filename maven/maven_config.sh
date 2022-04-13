@@ -11,6 +11,7 @@ if [ ${FZFLET_MAVEN_CONFIG:-0} -eq 0 ]; then
 
     export FZFLET_MAVEN_BATCH_SIZE=${FZFLET_MAVEN_BATCH_SIZE:-$(eval echo "\${FZFLET_MAVEN_${FZFLET_MAVEN_CONTEXT}_BATCH_SIZE:-50}")}
 
+
     url=${FZFLET_MAVEN_URL:-$(eval echo "\${FZFLET_MAVEN_${FZFLET_MAVEN_CONTEXT}_URL:-https://search.maven.org/}")}
     while [ -z "$url" ]; do
         echo -n "Input url> "
@@ -22,6 +23,8 @@ if [ ${FZFLET_MAVEN_CONFIG:-0} -eq 0 ]; then
     done
     export FZFLET_MAVEN_URL=$url
     export FZFLET_MAVEN_EXTRA_QUERY=${FZFLET_MAVEN_EXTRA_QUERY:-$(eval echo "\${FZFLET_MAVEN_${FZFLET_MAVEN_CONTEXT}_EXTRA_QUERY:-}")}
+
+    export FZFLET_MAVEN_NAME=${FZFLET_MAVEN_NAME:-$(eval echo "\${FZFLET_MAVEN_${FZFLET_MAVEN_CONTEXT}_NAME:-$FZFLET_MAVEN_URL}")}
 
     if [ -z "${FZFLET_MAVEN_OPEN_URL+1}" ]; then
         export FZFLET_MAVEN_OPEN_URL=$(eval echo "\${FZFLET_MAVEN_${FZFLET_MAVEN_CONTEXT}_OPEN_URL:-'https://mvnrepository.com/artifact/{1}/{2}/{3}'}")

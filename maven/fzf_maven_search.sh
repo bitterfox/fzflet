@@ -43,7 +43,7 @@ elif [ -n "$1" ]; then
     FZF_DEFAULT_COMMAND="$basedir/$FZFLET_MAVEN_SEARCH $1" \
                        fzf_maven
 else
-    FZF_DEFAULT_COMMAND="echo 'Type to search maven repository $FZFLET_MAVEN_URL'" \
+    FZF_DEFAULT_COMMAND="echo 'Type to search maven repository $FZFLET_MAVEN_NAME'" \
                        fzf_maven --disabled --bind "change:reload($basedir/$FZFLET_MAVEN_SEARCH {q})"
 fi
 

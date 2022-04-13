@@ -9,11 +9,11 @@ case $FZFLET_MAVEN_SEARCH_CONTEXT in
 esac
 
 if [ "$query" == "q=" ]; then
-    echo "Type to search maven repository $FZFLET_MAVEN_URL"
+    echo "Type to search maven repository $FZFLET_MAVEN_NAME"
     exit 0
 fi
 
-echo "[$FZFLET_MAVEN_URL] Searching $query"
+echo "[$FZFLET_MAVEN_NAME] Searching $query"
 
 if [ -n "$FZFLET_MAVEN_EXTRA_QUERY" ]; then
     query="$query&$FZFLET_MAVEN_EXTRA_QUERY"
