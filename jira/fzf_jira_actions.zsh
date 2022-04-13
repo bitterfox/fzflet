@@ -12,7 +12,13 @@ fzf_jira_list_issues_action() {
     priority=$1
     description=$2
 
-    matches=`$fzflet_jira_basedir/fzf_jira_list_issues.sh < /dev/tty`
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config zsh
+
+    id=$((priority - JIRA_CATEGORY + 1))
+    context=${FZFLET_JIRA_ACTIONS[$id]}
+
+    matches=`FZFLET_JIRA_CONTEXT=$context $fzflet_jira_basedir/fzf_jira_list_issues.sh < /dev/tty`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do
@@ -22,21 +28,32 @@ fzf_jira_list_issues_action() {
 }
 
 fzf_jira_list_issues_action_category_name() {
-    fzf_jira_category_name
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config zsh
+    for context in $FZFLET_JIRA_ACTIONS; do
+            fzf_jira_category_name
+    done
 }
 
 fzf_jira_list_issues_action_priorities() {
     . $fzflet_jira_basedir/../util/common.sh
-    load_config
-    if [ -n "$FZFLET_JIRA_DEFAULT_URL" ]; then
-        echo $JIRA_CATEGORY
-    fi
+    load_config zsh
+
+    i=0
+    for context in $FZFLET_JIRA_ACTIONS; do
+        echo $((JIRA_CATEGORY + i))
+        i=$((i + 1))
+    done
 }
 
 fzf_jira_list_issues_action_descriptions() {
     . $fzflet_jira_basedir/../util/common.sh
     load_config
-    if [ -n "$FZFLET_JIRA_DEFAULT_URL" ]; then
-        echo "list issues in $FZFLET_JIRA_DEFAULT_URL"
-    fi
+    load_config zsh
+
+    for context in $FZFLET_JIRA_ACTIONS; do
+        name=$(eval echo "\${FZFLET_JIRA_${context}_NAME:-}")
+        url=$(eval echo "\${FZFLET_JIRA_${context}_URL:-}")
+        echo "${name:-$url}: List issues"
+    done
 }
