@@ -30,14 +30,22 @@ fzf_gh_list_pr_action_priorities() {
 }
 
 fzf_gh_list_pr_action_descriptions() {
-    git rev-parse --git-dir > /dev/null 2>&1
+    git_root=`git rev-parse --git-dir 2>/dev/null`
     if [ $? -ne 0 ]; then
         return
     fi
 
-    url=`gh repo view --json url | jq -r '.url'`
-    if [ $? -ne 0 ]; then
-        return
+    # Find cache
+    cache_root="$git_root/fzflet"
+    mkdir -p "$cache_root"
+    repo_url_cache_path="$cache_root/gh_repo_url"
+    url=`cat $repo_url_cache_path 2>/dev/null`
+    if [ $? -ne 0 ] || [ -z "$url" ]; then
+        url=`timeout 1 gh repo view --json url | jq -r '.url'`
+        if [ $? -ne 0 ] || [ -z "$url" ]; then
+            return
+        fi
+        echo "$url" > $repo_url_cache_path
     fi
 
     hostname=`echo $url | sed -r "s#http(s*)://([^/]+)/([^/]+)/([^/]+)#\2#"`
