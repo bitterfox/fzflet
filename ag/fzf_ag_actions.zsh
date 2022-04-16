@@ -35,10 +35,15 @@ fzf_ag_action() {
         dir=""
     fi
 
+    search_hidden_file="false"
+    if [[ "$file" == "." ]]; then
+        search_hidden_file="true"
+    fi
+
     resolved_dir=`eval echo $dir`
     resolved_dir_len=${#resolved_dir}
 
-    matches=`$fzflet_ag_basedir/fzf_ag.sh $resolved_dir`
+    matches=`FZFLET_AG_SEARCH_HIDDEN=$search_hidden_file $fzflet_ag_basedir/fzf_ag.sh $resolved_dir`
     ret=$?
 
     if [ $ret -eq 0 ]; then
