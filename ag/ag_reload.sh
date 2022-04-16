@@ -15,4 +15,4 @@ if [ -z "$query" ]; then
 fi
 
 echo "Find '${@:-.}' in $path"
-ag $opt $query $path
+ag $opt $query $path || true
