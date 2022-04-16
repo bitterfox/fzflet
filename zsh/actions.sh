@@ -15,7 +15,7 @@ for extra in $FZFLET_ZSH_ACTIONS_EXTRA_PATHS; do
     done < <(find $FZFLET_ZSH_ACTIONS_EXTRA_PATHS | grep "fzf_.*_actions\.zsh")
 done
 
-select_action() {
+list_actions(){
     max_category_name_len=0
     print -l ${(ok)functions[(I)fzf_*_action]} | while read line; do
         while read category_name; do
@@ -30,7 +30,11 @@ select_action() {
             printf "%s %d %-$((max_category_name_len + 2))s %s\n" \
                    $line $priority "[$category]" $description
         done < <(${line}_priorities) 3< <(${line}_descriptions) 4< <(${line}_category_name)
-    done | sort -k 2,2n | fzf --with-nth=3.. --tiebreak=index
+    done  | sort -k 2,2n
+}
+
+select_action() {
+    list_actions | fzf --with-nth=3.. --tiebreak=index
 }
 
 do_action() {
