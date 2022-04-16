@@ -2,6 +2,7 @@
 
 fzflet_zsh_basedir=`dirname $0`
 . $fzflet_zsh_basedir/../util/common.sh
+. $fzflet_zsh_basedir/default.zsh.rc
 load_config zsh
 
 while read line; do
@@ -29,7 +30,7 @@ select_action() {
             printf "%s %d %-$((max_category_name_len + 2))s %s\n" \
                    $line $priority "[$category]" $description
         done < <(${line}_priorities) 3< <(${line}_descriptions) 4< <(${line}_category_name)
-    done | sort -k 2,2n | fzf --with-nth=3..
+    done | sort -k 2,2n | fzf --with-nth=3.. --tiebreak=index
 }
 
 do_action() {

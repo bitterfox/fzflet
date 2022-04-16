@@ -1,13 +1,13 @@
 #!/bin/bash
 
+path=$1
+shift
+
 query="`echo $@ | sed -r "s/^\s+//" | sed -r "s/\s+$//" | sed -r "s/\s+/ -q /g"`"
 
 if [ -z "$query" ]; then
-    ag --color .
+    query="."
 fi
 
-ag --color $query
-
-if [ $? -ne 0 ]; then
-    echo "$query Not found"
-fi
+echo "Find '${@:-.}' $query in $path"
+ag --color $query $path
