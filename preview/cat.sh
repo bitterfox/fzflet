@@ -3,7 +3,7 @@
 path=$1
 line=$2
 
-if [ -n "command -v batcat" ]; then
+if [ -n "`command -v batcat`" ]; then
     options="-n"
     if [ -n "$line" ]; then
         options="$options -H $line"
