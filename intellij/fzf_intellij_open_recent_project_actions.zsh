@@ -32,15 +32,13 @@ fzf_intellij_cd_recent_project_action_category_name() {
 }
 
 fzf_intellij_cd_recent_project_action_priorities() {
-    . $fzflet_intellij_basedir/../util/common.sh
-    load_config
     echo $INTELLIJ_CATEGORY
 }
 
 fzf_intellij_cd_recent_project_action_descriptions() {
-    . $fzflet_intellij_basedir/../util/common.sh
-    load_config
-    echo "Go to recent project"
+    if [ -d "$HOME/.config/JetBrains" ]; then
+        echo "Go to recent project"
+    fi
 }
 
 fzf_intellij_open_recent_project_action() {
@@ -64,17 +62,13 @@ fzf_intellij_open_recent_project_action_category_name() {
 }
 
 fzf_intellij_open_recent_project_action_priorities() {
-    . $fzflet_intellij_basedir/../util/common.sh
-    load_config
     if [ -n "$FZFLET_INTELLIJ_EXEC_PATH" ]; then
         echo $((INTELLIJ_CATEGORY + 10))
     fi
 }
 
 fzf_intellij_open_recent_project_action_descriptions() {
-    . $fzflet_intellij_basedir/../util/common.sh
-    load_config
-    if [ -n "$FZFLET_INTELLIJ_EXEC_PATH" ]; then
+    if  [ -d "$HOME/.config/JetBrains" ] && [ -n "$FZFLET_INTELLIJ_EXEC_PATH" ]; then
         echo "Open recent project"
     fi
 }
