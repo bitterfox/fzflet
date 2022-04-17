@@ -54,6 +54,8 @@ fzf_jira_list_issues_action_descriptions() {
     for context in $FZFLET_JIRA_ACTIONS; do
         name=$(eval echo "\${FZFLET_JIRA_${context}_NAME:-}")
         url=$(eval echo "\${FZFLET_JIRA_${context}_URL:-}")
-        echo "${name:-$url}: List issues"
+        if [ -n "$url" ]; then
+            echo "${name:-$url}: List issues"
+        fi
     done
 }
