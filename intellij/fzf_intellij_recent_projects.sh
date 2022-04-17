@@ -16,6 +16,6 @@ done <<< "$projects"
 
 echo "$projects" | while read line; do
     timestamp=`sed -r 's/^([0-9]+)[0-9]{3}.*/\1/' <<< $line`
-    time=`date -d@$timestamp`
+    time=`date -d@$timestamp 2> /dev/null`
     printf "%-${len_max}s %s\n" "`sed -r "s/[0-9]+ (.*)/\1/" <<< $line`" "$time"
 done | fzf --tiebreak=index | awk '{print $1}'

@@ -2,6 +2,10 @@
 
 jetbrains_conf_dir="$HOME/.config/JetBrains"
 
+if [ ! -d "$intellij_conf_dir" ]; then
+    exit 1
+fi
+
 version=$1
 if [ -n "$version" ]; then
     intellij_conf_dir="$jetbrains_conf_dir/IntelliJIdea$version"
