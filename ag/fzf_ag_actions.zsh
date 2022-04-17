@@ -5,7 +5,9 @@ fzflet_ag_basedir=`dirname $0`
 AG_CATEGORY=150
 
 fzf_ag_category_name() {
-    echo "ag"
+    if [ `command -v ag` ]; then
+        echo "ag"
+    fi
 }
 
 fzf_ag_action() {
