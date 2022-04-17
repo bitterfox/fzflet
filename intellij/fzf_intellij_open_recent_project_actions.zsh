@@ -2,7 +2,7 @@
 
 fzflet_intellij_basedir=`dirname $0`
 
-INTELLIJ_CATEGORY=300
+INTELLIJ_CATEGORY=400
 
 fzf_intellij_category_name() {
     echo "IntelliJ"
