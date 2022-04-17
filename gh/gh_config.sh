@@ -27,6 +27,10 @@ if [ ${FZFLET_GITHUB_CONFIG:-0} -eq 0 ]; then
     else
         user=$(eval echo "\${FZFLET_GITHUB_${FZFLET_GITHUB_CONTEXT}_USER}")
     fi
+    if [ -z "$user" ] && [ `command -v gh` ]; then
+        user="`gh api --hostname $FZFLET_GITHUB_HOSTNAME /user -q .login`"
+    fi
+
     while [ -z "$user" ]; do
         echo -n "Input username for $hostname> "
         read user

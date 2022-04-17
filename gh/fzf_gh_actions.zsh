@@ -5,7 +5,9 @@ fzflet_github_basedir=`dirname $0`
 GITHUB_CATEGORY=250
 
 fzf_gh_category_name() {
-    echo "Github"
+    if [ `command -v ag` ]; then
+        echo "Github"
+    fi
 }
 
 fzf_gh_list_pr_action() {
