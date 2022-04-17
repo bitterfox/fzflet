@@ -19,8 +19,10 @@ fzf_intellij_cd_recent_project_action() {
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do
-            cd $line
-            zle fzf-redraw-prompt
+            if [ -n "$line" ]; then
+                cd $line
+                zle fzf-redraw-prompt
+            fi
         done
     fi
 }

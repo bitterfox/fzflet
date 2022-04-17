@@ -9,6 +9,10 @@ else
     intellij_conf_dir="$jetbrains_conf_dir/`ls $jetbrains_conf_dir | tail -n 1`"
 fi
 
+if [ ! -d "$intellij_conf_dir" ]; then
+    exit 1
+fi
+
 project=""
 project_open_timestamp=0
 while read line; do
