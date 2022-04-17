@@ -24,9 +24,9 @@ echo "$response" | jq -r ".body"
 echo "$response" | jq -r ".requested_reviewers[].login"
 echo "$response" | jq -r ".requested_teams[].name"
 
-gh api -H "Accept: application/vnd.github.v3.diff" --hostname $FZFLET_GITHUB_HOSTNAME repos/$repository/pulls/$pull_number | batcat --color=always
+gh api -H "Accept: application/vnd.github.v3.diff" --hostname $FZFLET_GITHUB_HOSTNAME repos/$repository/pulls/$pull_number | $basedir/../preview/cat.sh
 
-gh api --hostname $FZFLET_GITHUB_HOSTNAME repos/$repository/pulls/$pull_number/comments | jq -r '.[].diff_hunk' | batcat --color=always --language=diff
+gh api --hostname $FZFLET_GITHUB_HOSTNAME repos/$repository/pulls/$pull_number/comments | jq -r '.[].diff_hunk' | $basedir/../preview/cat_diff.sh
 gh api --hostname $FZFLET_GITHUB_HOSTNAME repos/$repository/pulls/$pull_number/comments | jq -r '.[].body'
 
 gh api --hostname $FZFLET_GITHUB_HOSTNAME repos/$repository/issues/$pull_number/comments | jq -r '.[].body'

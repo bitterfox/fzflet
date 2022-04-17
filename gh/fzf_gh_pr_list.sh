@@ -15,4 +15,5 @@ FZF_DEFAULT_COMMAND="$basedir/gh_pr_list.sh $hostname $owner $repo" \
                    fzf --preview-window right:50%:wrap \
                    --preview "FZFLET_GITHUB_HOSTNAME=$hostname $basedir/gh_preview_pull.sh $owner/$repo {1}" \
                    --bind "ctrl-r:reload($basedir/gh_pr_list.sh $hostname $owner $repo)" \
-                   --bind "ctrl-o:execute-silent(gh pr view {1} -R $hostname/$owner/$repo -w)"
+                   --bind "ctrl-o:execute-silent(gh pr view {1} -R $hostname/$owner/$repo -w)" \
+                   --bind "alt-c:execute-silent()"

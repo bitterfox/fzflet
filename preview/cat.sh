@@ -8,6 +8,9 @@ if [ -n "`command -v batcat`" ]; then
     if [ -n "$line" ]; then
         options="$options -H $line"
     fi
+    if [ -n "$BATCAT_OPTS" ]; then
+        options="$options $BATCAT_OPTS"
+    fi
     batcat --color=always $options $path
 else
     options=""
