@@ -21,7 +21,7 @@ fzf_zsh_history_action() {
             zle fzf-redraw-prompt
             typeset -f zle-line-init >/dev/null && zle zle-line-init
         else
-            num=`echo "$matches" | tail -n 1 | awk '{print $1}'`
+            num=`echo "$matches" | head -n 2 | tail -n 1 | awk '{print $1}'`
             if [ -n "$num" ]; then
                 zle vi-fetch-history -n $num
             fi
