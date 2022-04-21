@@ -15,8 +15,8 @@ fzf_files_find_file_action() {
     lbuffer_without_query="$LBUFFER"
     query=""
     if [[ "${LBUFFER: -1}" != " " ]]; then
-        lbuffer_without_query="`echo "$LBUFFER" | sed -r "s/(.*\s)?([^\S]+)/\1/"`"
-        query="`echo "$LBUFFER" | sed -r "s/(.*\s)?([^\S]+)/\2/"`"
+        lbuffer_without_query="`echo "$LBUFFER" | sed -r "s/(.*\s)?(.+)/\1/"`"
+        query="`echo "$LBUFFER" | sed -r "s/(.*\s)?(.+)/\2/"`"
 
         dir="`echo "$query" | sed -r "s/(.*)\/(.*)/\1/"`"
         if [[ "$dir" == "$query" ]]; then
@@ -37,7 +37,7 @@ fzf_files_find_file_action() {
         file=""
     fi
 
-    matches=`FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh $dir`
+    matches=`FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh $dir $file`
     ret=$?
 
     if [ $ret -eq 0 ]; then
@@ -85,8 +85,8 @@ fzf_files_goto_dir_action() {
     lbuffer_without_query="$LBUFFER"
     query=""
     if [[ "${LBUFFER: -1}" != " " ]]; then
-        lbuffer_without_query="`echo "$LBUFFER" | sed -r "s/(.*\s)?([^\S]+)/\1/"`"
-        query="`echo "$LBUFFER" | sed -r "s/(.*\s)?([^\S]+)/\2/"`"
+        lbuffer_without_query="`echo "$LBUFFER" | sed -r "s/(.*\s)?(.+)/\1/"`"
+        query="`echo "$LBUFFER" | sed -r "s/(.*\s)?(.+)/\2/"`"
 
         dir="`echo "$query" | sed -r "s/(.*)\/(.*)/\1/"`"
         if [[ "$dir" == "$query" ]]; then
@@ -107,7 +107,7 @@ fzf_files_goto_dir_action() {
         file=""
     fi
 
-    match=`FZFLET_FILES_FIND_DIR_ONLY="true" FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh $dir +m`
+    match=`FZFLET_FILES_FIND_DIR_ONLY="true" FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh $dir $file +m`
     ret=$?
 
     if [ $ret -eq 0 ]; then
