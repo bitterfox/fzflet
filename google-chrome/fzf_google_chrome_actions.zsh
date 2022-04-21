@@ -29,7 +29,7 @@ fzf_google-chrome_open_history_action_category_name() {
 }
 
 fzf_google-chrome_open_history_action_priorities() {
-    echo $GOOGLE-CHROME_CATEGORY
+    echo $GOOGLE_CHROME_CATEGORY
 }
 
 fzf_google-chrome_open_history_action_descriptions() {
