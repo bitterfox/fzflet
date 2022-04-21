@@ -42,6 +42,8 @@ hostname=$1
 owner=$2
 repo=$3
 
+state=${4:-open}
+
 export FZFLET_GITHUB_HOSTNAME=$hostname
 export FZFLET_GITHUB_USER=dummy
 
@@ -55,7 +57,7 @@ total_title_max_length=0
 total_user_max_length=0
 
 while :; do
-    response=`gh api --hostname $hostname "/repos/$owner/$repo/pulls?page=$page"`
+    response=`gh api --hostname $hostname "/repos/$owner/$repo/pulls?state=$state&page=$page"`
     if [ "`echo $response | jq '. | length'`" == "0" ]; then
         break;
     fi

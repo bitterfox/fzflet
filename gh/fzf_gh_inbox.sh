@@ -9,4 +9,4 @@ FZF_DEFAULT_COMMAND="$basedir/gh_inbox.sh" \
                    --preview "$basedir/gh_preview_inbox.sh {1}" \
                    --with-nth=2.. \
                    --bind "ctrl-r:reload($basedir/gh_inbox.sh)" \
-                   --bind "ctrl-o:execute-silent($basedir/gh_open_inbox.sh {1})"
+                   --bind "$FZFLET_GITHUB_OPEN_PULL_KEY:execute-silent($basedir/gh_open_inbox.sh {1})"

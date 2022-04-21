@@ -54,7 +54,7 @@ fzf_gh_list_pr_action_descriptions() {
     owner=`echo $url | sed -r "s#http(s*)://([^/]+)/([^/]+)/([^/]+)#\3#"`
     repo=`echo $url | sed -r "s#http(s*)://([^/]+)/([^/]+)/([^/]+)#\4#"`
 
-    echo "List pull requests for $hostname/$owner/$repo"
+    echo "List pull requests(PRs) for $hostname/$owner/$repo"
 }
 
 fzf_gh_inbox_action() {
@@ -196,7 +196,7 @@ fzf_gh_search_pulls_action_descriptions() {
             if [ -z "$query_name" ]; then
                 break;
             fi
-            echo "${name:-$url}: Search pulls $query_name"
+            echo "${name:-$url}: Search my pull requests(PRs) $query_name"
             j=$((j + 1))
         done
         i=$((i + 1))
