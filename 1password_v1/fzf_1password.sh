@@ -28,9 +28,8 @@ if [ $SESSION_EXPIRE -lt `date +%s` ]; then
     login
 
     LAST_ITEM=""
+    SESSION_EXPIRE=`date -d "28 minutes" +%s`
 fi
-
-SESSION_EXPIRE=`date -d "60 minutes" +%s`
 
 run() {
     items="`$basedir/1password_list_items.sh`"
