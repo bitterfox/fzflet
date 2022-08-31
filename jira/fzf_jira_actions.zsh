@@ -31,7 +31,7 @@ fzf_jira_list_issues_action_category_name() {
     . $fzflet_jira_basedir/../util/common.sh
     load_config zsh
     for context in $FZFLET_JIRA_ACTIONS; do
-            fzf_jira_category_name
+        fzf_jira_category_name
     done
 }
 
