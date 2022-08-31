@@ -59,3 +59,61 @@ fzf_jira_list_issues_action_descriptions() {
         fi
     done
 }
+
+fzf_jira_worklog_start_action() {
+    priority=$1
+    description=$2
+
+    $fzflet_jira_basedir/fzf_jira_worklog_start_task.sh < /dev/tty
+    zle fzf-redraw-prompt
+}
+
+fzf_jira_worklog_start_action_category_name() {
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config zsh
+    fzf_jira_category_name
+}
+
+fzf_jira_worklog_start_action_priorities() {
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config zsh
+
+    echo $((JIRA_CATEGORY + 50))
+}
+
+fzf_jira_worklog_start_action_descriptions() {
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config
+    load_config zsh
+    echo "Start new worklog"
+}
+
+fzf_jira_worklog_stop_action() {
+    priority=$1
+    description=$2
+
+    $fzflet_jira_basedir/jira_worklog_stop_task.sh
+    zle fzf-redraw-prompt
+}
+
+fzf_jira_worklog_stop_action_category_name() {
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config zsh
+    if [ -f ~/.wip_task ] && [ -s ~/.wip_task ]; then
+        fzf_jira_category_name
+    fi
+}
+
+fzf_jira_worklog_stop_action_priorities() {
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config zsh
+
+    echo $((JIRA_CATEGORY + 51))
+}
+
+fzf_jira_worklog_stop_action_descriptions() {
+    . $fzflet_jira_basedir/../util/common.sh
+    load_config
+    load_config zsh
+    echo "Stop current worklog: `$fzflet_jira_basedir/jira_worklog_preview_task.sh`"
+}
