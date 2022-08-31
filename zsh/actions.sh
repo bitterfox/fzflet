@@ -55,6 +55,18 @@ _fzf_actions() {
 #    typeset -f zle-line-init >/dev/null && zle zle-line-init
 }
 
+_fzf_actions_then_echo() {
+    select=`select_action`
+    if [ $? -eq 0 ]; then
+        action=`awk '{print $1}' <<< $select`
+        priority=`awk '{print $2}' <<< $select`
+        description=`sed -r 's/^[^ ]+ [^ ]+ (.*)/\1/' <<< $select`
+        do_action $action $priority $description
+        echo "$LBUFFER$RBUFFER"
+    fi
+#    typeset -f zle-line-init >/dev/null && zle zle-line-init
+}
+
 config_actions() {
     zle -N fzf_action _fzf_actions
     if [ -n "$FZFLET_ZSH_ACTIONS_KEY" ]; then
