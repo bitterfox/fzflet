@@ -1,7 +1,10 @@
 #!/bin/bash
 
 start_time="$1"
-current_time=`date '+%s'`
+current_time="$2"
+if [ -z "$current_time" ]; then
+    current_time=`date '+%s'`
+fi
 elapsed_time_sec="$((current_time - start_time))"
 
 elapsed_time_minute=$((elapsed_time_sec / 60))
