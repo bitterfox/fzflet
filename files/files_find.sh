@@ -5,11 +5,11 @@ dir=$1
 find_dir="`eval "command find -L "$dir" | head -n 1"`"
 dirlen="${#find_dir}"
 
-if [[ "$FZFLET_FILES_FIND_DIR_ONLY" == "true" ]]; then
-    option="-type d -print"
-else
-    option="-type d -print -o -type f -print -o -type l -print"
-fi
+case "${FZFLET_FILES_FIND_TARGET:-file}" in
+    "file") option="-type f -print -o -type l -print" ;;
+    "dir") option="-type d -print" ;;
+    "all") option="-type d -print -o -type f -print -o -type l -print" ;;
+esac
 
 if [[ "$FZFLET_FILES_FIND_HIDDEN" == "true" ]]; then
         cmd="${FZF_CTRL_T_COMMAND:-"command find -L "$dir" -mindepth 1 \\( -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \

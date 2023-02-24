@@ -43,6 +43,10 @@ fzf_files_find_file_action() {
     if [ $ret -eq 0 ]; then
         files=""
         echo "$matches" | while read item; do
+            if [ -z "$item" ]; then
+                continue
+            fi
+
             if [[ "$dir" == "./" ]]; then
                 p="${(q)item}"
             else
@@ -107,7 +111,7 @@ fzf_files_goto_dir_action() {
         file=""
     fi
 
-    match=`FZFLET_FILES_FIND_DIR_ONLY="true" FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh $dir $file +m`
+    match=`FZFLET_FILES_FIND_TARGET="dir" FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh "$dir" "$file" +m`
     ret=$?
 
     if [ $ret -eq 0 ]; then
