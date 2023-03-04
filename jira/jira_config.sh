@@ -14,6 +14,10 @@ if [ ${FZFLET_JIRA_CONFIG:-0} -eq 0 ]; then
 
     url=${FZFLET_JIRA_URL:-$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_URL}")}
     while [ -z "$url" ]; do
+        if [ "$FZFLET_JIRA_SKIP_PROMPT" == "true" ]; then
+            exit 1
+        fi
+
         echo -n "Input url> "
         read url
 
@@ -29,6 +33,10 @@ if [ ${FZFLET_JIRA_CONFIG:-0} -eq 0 ]; then
         user=$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_USER}")
     fi
     while [ -z "$user" ]; do
+        if [ "$FZFLET_JIRA_SKIP_PROMPT" == "true" ]; then
+            exit 1
+        fi
+
         echo -n "Input username for $url> "
         read user
 
@@ -44,6 +52,10 @@ if [ ${FZFLET_JIRA_CONFIG:-0} -eq 0 ]; then
         password=$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_PASSWORD}")
     fi
     while [ -z "$password" ]; do
+        if [ "$FZFLET_JIRA_SKIP_PROMPT" == "true" ]; then
+            exit 1
+        fi
+
         echo -n "Input password for $url> "
         read -s password
 
