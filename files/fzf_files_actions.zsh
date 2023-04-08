@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-fzflet_files_basedir=`dirname $0`
+fzflet_files_actions_path="$0"
+fzflet_files_basedir() {
+    basedir $fzflet_files_actions_path
+}
 
 FILES_CATEGORY=100
 
@@ -37,7 +40,7 @@ fzf_files_find_file_action() {
         file=""
     fi
 
-    matches=`FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh $dir $file`
+    matches=`FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $(fzflet_files_basedir)/fzf_files_find.sh $dir $file`
     ret=$?
 
     if [ $ret -eq 0 ]; then
@@ -111,7 +114,7 @@ fzf_files_goto_dir_action() {
         file=""
     fi
 
-    match=`FZFLET_FILES_FIND_TARGET="dir" FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $fzflet_files_basedir/fzf_files_find.sh "$dir" "$file" +m`
+    match=`FZFLET_FILES_FIND_TARGET="dir" FZFLET_FILES_FIND_HIDDEN=$search_hidden_file $(fzflet_files_basedir)/fzf_files_find.sh "$dir" "$file" +m`
     ret=$?
 
     if [ $ret -eq 0 ]; then

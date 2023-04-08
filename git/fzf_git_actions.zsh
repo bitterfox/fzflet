@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-fzflet_git_basedir=`dirname $0`
+fzflet_git_actions_path="$0"
+fzflet_git_basedir() {
+    dirname $fzflet_git_actions_path
+}
 
 GIT_CATEGORY=200
 
@@ -12,13 +15,13 @@ fzf_git_category_name() {
 }
 
 fzf_git_gr_action() {
-    . $fzflet_git_basedir/../util/common.sh
+    . $(fzflet_git_basedir)/../util/common.sh
     load_config
 
     priority=$1
     description=$2
 
-    matches=`$fzflet_git_basedir/fzf_git_gr.sh`
+    matches=`$(fzflet_git_basedir)/fzf_git_gr.sh`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do
@@ -40,13 +43,13 @@ fzf_git_gr_action_descriptions() {
 }
 
 fzf_git_branch_action() {
-    . $fzflet_git_basedir/../util/common.sh
+    . $(fzflet_git_basedir)/../util/common.sh
     load_config
 
     priority=$1
     description=$2
 
-    matches=`$fzflet_git_basedir/fzf_git_branch.sh`
+    matches=`$(fzflet_git_basedir)/fzf_git_branch.sh`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do

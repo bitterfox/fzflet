@@ -1,6 +1,10 @@
 #!/bin/zsh
 
-fzflet_intellij_basedir=`dirname $0`
+fzflet_intellij_actions_path="$0"
+fzflet_intellij_basedir() {
+    dirname $fzflet_intellij_actions_path
+}
+
 
 INTELLIJ_CATEGORY=400
 
@@ -9,13 +13,13 @@ fzf_intellij_category_name() {
 }
 
 fzf_intellij_cd_recent_project_action() {
-    . $fzflet_intellij_basedir/../util/common.sh
+    . $(fzflet_intellij_basedir)/../util/common.sh
     load_config
 
     priority=$1
     description=$2
 
-    matches=`$fzflet_intellij_basedir/fzf_intellij_recent_projects.sh`
+    matches=`$(fzflet_intellij_basedir)/fzf_intellij_recent_projects.sh`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do
@@ -42,13 +46,13 @@ fzf_intellij_cd_recent_project_action_descriptions() {
 }
 
 fzf_intellij_open_recent_project_action() {
-    . $fzflet_intellij_basedir/../util/common.sh
+    . $(fzflet_intellij_basedir)/../util/common.sh
     load_config
 
     priority=$1
     description=$2
 
-    matches=`$fzflet_intellij_basedir/fzf_intellij_recent_projects.sh`
+    matches=`$(fzflet_intellij_basedir)/fzf_intellij_recent_projects.sh`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do

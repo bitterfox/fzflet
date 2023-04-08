@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-fzflet_github_basedir=`dirname $0`
+fzflet_github_actions_path="$0"
+fzflet_github_basedir() {
+    dirname $fzflet_github_actions_path
+}
 
 GITHUB_CATEGORY=250
 
@@ -14,7 +17,7 @@ fzf_gh_list_pr_action() {
     priority=$1
     description=$2
 
-    matches=`$fzflet_github_basedir/fzf_gh_pr_list.sh < /dev/tty`
+    matches=`$(fzflet_github_basedir)/fzf_gh_pr_list.sh < /dev/tty`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do
@@ -61,14 +64,14 @@ fzf_gh_inbox_action() {
     priority=$1
     description=$2
 
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config zsh
 
     id=$((priority % 10 + 1))
 
     context=${FZFLET_GITHUB_ACTIONS[$id]}
 
-    matches=`FZFLET_GITHUB_CONTEXT=$context $fzflet_github_basedir/fzf_gh_inbox.sh < /dev/tty`
+    matches=`FZFLET_GITHUB_CONTEXT=$context $(fzflet_github_basedir)/fzf_gh_inbox.sh < /dev/tty`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do
@@ -78,7 +81,7 @@ fzf_gh_inbox_action() {
 }
 
 fzf_gh_inbox_action_category_name() {
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config
     load_config zsh
 
@@ -88,7 +91,7 @@ fzf_gh_inbox_action_category_name() {
 }
 
 fzf_gh_inbox_action_priorities() {
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config
     load_config zsh
 
@@ -100,7 +103,7 @@ fzf_gh_inbox_action_priorities() {
 }
 
 fzf_gh_inbox_action_descriptions() {
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config
     load_config zsh
 
@@ -115,7 +118,7 @@ __fzf_gh_search_pulls_action() {
     priority=$1
     description=$2
 
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config
     load_config zsh
 
@@ -128,7 +131,7 @@ __fzf_gh_search_pulls_action() {
     query_name=$(eval echo "\${FZFLET_GITHUB_${context}_SEARCH_PULLS_QUERY_${j}_NAME:-}")
     query=$(eval echo "\${FZFLET_GITHUB_${context}_SEARCH_PULLS_QUERY_${j}:-}")
 
-    FZFLET_GITHUB_CONTEXT=$context $fzflet_github_basedir/fzf_gh_search_pulls.sh $query < /dev/tty
+    FZFLET_GITHUB_CONTEXT=$context $(fzflet_github_basedir)/fzf_gh_search_pulls.sh $query < /dev/tty
 }
 
 fzf_gh_search_pulls_action() {
@@ -142,10 +145,9 @@ fzf_gh_search_pulls_action() {
 }
 
 fzf_gh_search_pulls_action_category_name() {
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config
     load_config zsh
-
     i=0
     for context in $FZFLET_GITHUB_ACTIONS; do
         j=1
@@ -162,7 +164,7 @@ fzf_gh_search_pulls_action_category_name() {
 }
 
 fzf_gh_search_pulls_action_priorities() {
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config
     load_config zsh
 
@@ -182,7 +184,7 @@ fzf_gh_search_pulls_action_priorities() {
 }
 
 fzf_gh_search_pulls_action_descriptions() {
-    . $fzflet_github_basedir/../util/common.sh
+    . $(fzflet_github_basedir)/../util/common.sh
     load_config
     load_config zsh
 
