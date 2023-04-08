@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-fzflet_maven_basedir=`dirname $0`
+fzflet_maven_actions_path="$0"
+fzflet_maven_basedir() {
+    dirname $fzflet_maven_actions_path
+}
 
 MAVEN_CATEGORY=600
 
@@ -12,13 +15,13 @@ fzf_maven_search_action() {
     priority=$1
     description=$2
 
-    . $fzflet_maven_basedir/../util/common.sh
+    . $(fzflet_maven_basedir)/../util/common.sh
     load_config zsh
 
     id=$((priority - MAVEN_CATEGORY + 1))
     context=${FZFLET_MAVEN_ACTIONS[$id]}
 
-    matches=`FZFLET_MAVEN_CONTEXT=$context $fzflet_maven_basedir/fzf_maven_search.sh < /dev/tty`
+    matches=`FZFLET_MAVEN_CONTEXT=$context $(fzflet_maven_basedir)/fzf_maven_search.sh < /dev/tty`
 
     if [ $? -eq 0 ]; then
         echo "$matches" | while read line; do
@@ -28,7 +31,7 @@ fzf_maven_search_action() {
 }
 
 fzf_maven_search_action_category_name() {
-    . $fzflet_maven_basedir/../util/common.sh
+    . $(fzflet_maven_basedir)/../util/common.sh
     load_config zsh
 
     for context in $FZFLET_MAVEN_ACTIONS; do
@@ -37,7 +40,7 @@ fzf_maven_search_action_category_name() {
 }
 
 fzf_maven_search_action_priorities() {
-    . $fzflet_maven_basedir/../util/common.sh
+    . $(fzflet_maven_basedir)/../util/common.sh
     load_config zsh
 
     i=0
@@ -48,7 +51,7 @@ fzf_maven_search_action_priorities() {
 }
 
 fzf_maven_search_action_descriptions() {
-    . $fzflet_maven_basedir/../util/common.sh
+    . $(fzflet_maven_basedir)/../util/common.sh
     load_config
     load_config zsh
 

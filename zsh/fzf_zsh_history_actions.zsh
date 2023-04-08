@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-fzflet_zsh_basedir=`dirname $0`
+fzflet_zsh_actions_path="$0"
+fzflet_zsh_basedir() {
+    dirname $fzflet_zsh_actions_path
+}
 
 ZSH_CATEGORY=0
 
@@ -12,7 +15,7 @@ fzf_zsh_history_action() {
     priority=$1
     description=$2
 
-    matches=`$fzflet_zsh_basedir/fzf_zsh_history.sh ${LBUFFER}`
+    matches=`$(fzflet_zsh_basedir)/fzf_zsh_history.sh ${LBUFFER}`
     ret=$?
 
     if [ $ret -eq 0 ]; then

@@ -1,5 +1,4 @@
 #!/bin/zsh
-
 fzflet_zsh_basedir=`dirname $0`
 . $fzflet_zsh_basedir/../util/common.sh
 . $fzflet_zsh_basedir/default.zsh.rc
@@ -7,12 +6,12 @@ load_config zsh
 
 while read line; do
     . $line
-done < <(find $fzflet_zsh_basedir/.. | grep "fzf_.*_actions\.zsh")
+done < <(find $fzflet_zsh_basedir/.. -name "fzf_*_actions.zsh")
 
 for extra in $FZFLET_ZSH_ACTIONS_EXTRA_PATHS; do
     while read line; do
         . $line
-    done < <(find $FZFLET_ZSH_ACTIONS_EXTRA_PATHS | grep "fzf_.*_actions\.zsh")
+    done < <(find $extra -name "fzf_*_actions.zsh")
 done
 
 list_actions(){

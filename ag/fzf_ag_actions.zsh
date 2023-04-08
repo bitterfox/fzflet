@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-fzflet_ag_basedir=`dirname $0`
+fzflet_ag_actions_path="$0"
+fzflet_ag_basedir() {
+    dirname $fzflet_ag_actions_path
+}
 
 AG_CATEGORY=150
 
@@ -45,7 +48,7 @@ fzf_ag_action() {
     resolved_dir=`eval echo $dir`
     resolved_dir_len=${#resolved_dir}
 
-    matches=`FZFLET_AG_SEARCH_HIDDEN=$search_hidden_file $fzflet_ag_basedir/fzf_ag.sh $resolved_dir`
+    matches=`FZFLET_AG_SEARCH_HIDDEN=$search_hidden_file $(fzflet_ag_basedir)/fzf_ag.sh $resolved_dir`
     ret=$?
 
     if [ $ret -eq 0 ]; then
