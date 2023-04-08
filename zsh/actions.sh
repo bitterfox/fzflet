@@ -1,31 +1,18 @@
 #!/bin/zsh
-
-startfzflet=$(date +%s%N)
-
 fzflet_zsh_basedir=`dirname $0`
 . $fzflet_zsh_basedir/../util/common.sh
 . $fzflet_zsh_basedir/default.zsh.rc
 load_config zsh
 
-endfzflet=$(date +%s%N)
-echo fzflet.loadconfig $(( (endfzflet - startfzflet) / 1000/ 1000)) ms
-startfzflet=$(date +%s%N)
-
 while read line; do
     . $line
 done < <(find $fzflet_zsh_basedir/.. -name "fzf_*_actions.zsh")
-endfzflet=$(date +%s%N)
-echo fzflet.loadactions $(( (endfzflet - startfzflet) / 1000/ 1000)) ms
-startfzflet=$(date +%s%N)
 
 for extra in $FZFLET_ZSH_ACTIONS_EXTRA_PATHS; do
     while read line; do
         . $line
-    done < <(find $FZFLET_ZSH_ACTIONS_EXTRA_PATHS -name "fzf_*_actions.zsh")
+    done < <(find $extra -name "fzf_*_actions.zsh")
 done
-endfzflet=$(date +%s%N)
-echo fzflet.loadextraactions $(( (endfzflet - startfzflet) / 1000/ 1000)) ms
-startfzflet=$(date +%s%N)
 
 list_actions(){
     max_category_name_len=0
@@ -87,6 +74,3 @@ config_actions() {
 }
 
 config_actions
-endfzflet=$(date +%s%N)
-echo fzflet.definefunctions $(( (endfzflet - startfzflet) / 1000/ 1000)) ms
-startfzflet=$(date +%s%N)
