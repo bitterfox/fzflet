@@ -2,7 +2,7 @@
 
 fzflet_files_actions_path="$0"
 fzflet_files_basedir() {
-    basedir $fzflet_files_actions_path
+    dirname $fzflet_files_actions_path
 }
 
 FILES_CATEGORY=100
