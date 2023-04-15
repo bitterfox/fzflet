@@ -61,7 +61,7 @@ _fzf_actions_then_echo() {
         priority=`awk '{print $2}' <<< $select`
         description=`sed -r 's/^[^ ]+ [^ ]+ (.*)/\1/' <<< $select`
         do_action $action $priority $description
-        echo "$LBUFFER$RBUFFER"
+        echo $@ "$LBUFFER$RBUFFER"
     fi
 #    typeset -f zle-line-init >/dev/null && zle zle-line-init
 }
