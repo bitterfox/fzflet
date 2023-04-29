@@ -24,7 +24,8 @@ fzf_zsh_history_action() {
             zle fzf-redraw-prompt
             typeset -f zle-line-init >/dev/null && zle zle-line-init
         else
-            LBUFFER=`echo "$matches" | tail -n +2`
+            n=`echo "$matches" | tail -n +2 | awk '{print $1}'`
+            LBUFFER="${history[$n]}"
             zle fzf-redraw-prompt
             typeset -f zle-line-init >/dev/null && zle zle-line-init
         fi
