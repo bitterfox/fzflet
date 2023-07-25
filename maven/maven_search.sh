@@ -2,7 +2,7 @@
 
 case $FZFLET_MAVEN_SEARCH_CONTEXT in
     "GROUP" ) query="g:$FZFLET_MAVEN_SEARCH_GROUP" ;;
-    "ARTIFACT" ) query="g:$FZFLET_MAVEN_SEARCH_GROUP%20AND%20a:$FZFLET_MAVEN_SEARCH_ARTIFACT" ;;
+    "ARTIFACT" ) query="g:$FZFLET_MAVEN_SEARCH_GROUP%20AND%20a:$FZFLET_MAVEN_SEARCH_ARTIFACT&core=gav" ;;
     * ) query=`echo "$1" | sed -r "s/\s/%20/g"` ;;
 esac
 
