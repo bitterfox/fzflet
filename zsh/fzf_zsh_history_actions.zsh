@@ -24,8 +24,11 @@ fzf_zsh_history_action() {
             zle fzf-redraw-prompt
             typeset -f zle-line-init >/dev/null && zle zle-line-init
         else
-            n=`echo "$matches" | tail -n +2 | awk '{print $1}'`
-            LBUFFER="${history[$n]}"
+            n=`echo "$matches" | tail -n +2 | head -n 1 | awk '{print $1}'`
+            # https://unix.stackexchange.com/questions/244521/how-can-i-replace-a-literal-n-with-a-newline-character-on-os-x
+            echohist() { ! cat "$1" }
+            m=`FCEDIT=echohist fc $n`
+            LBUFFER="$m"
             zle fzf-redraw-prompt
             typeset -f zle-line-init >/dev/null && zle zle-line-init
         fi
