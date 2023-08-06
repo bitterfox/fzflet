@@ -24,8 +24,18 @@ ag_query() {
     fi
 }
 
+if [[ "$@" == "" ]]; then
+    set -- .
+fi
+
+ag_color_opts="--color"
+if [[ "$@" == "." ]]; then
+    ag_color_opts="$ag_color_opts --color-match=0;0"
+fi
+
+
 cat $cache_dir/line_cache | \
-    sort -rnk 1 | awk '{print $2}' | \
+    sort -rnk 1 | awk '{print $2}' | awk '!seen[$0]++' | \
     ag_and $@ | \
-    xargs ag -A10 -B10 --color \
+    xargs ag -A10 -B10 $ag_color_opts \
           `ag_query $@`
