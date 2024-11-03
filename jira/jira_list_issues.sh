@@ -12,7 +12,11 @@ batch=$FZFLET_JIRA_FAST_BATCH_SIZE
 
 trap 'echo killing | tee /tmp/debug.script; finish=1' SIGUSR1 SIGKILL SIGINT
 while [ $finish -eq 0 ]; do
-    result=`curl -s -u "$FZFLET_JIRA_USER:$FZFLET_JIRA_PASSWORD" "$FZFLET_JIRA_URL/rest/api/2/search?startAt=$current&maxResult=$batch&fields=issuetype,project,summary,description,assignee&jql=$FZFLET_JIRA_QUERY"`
+    if [ -n "$FZFLET_JIRA_TOKEN" ]; then
+        result=`curl -s -H "Authorization: Bearer $FZFLET_JIRA_TOKEN" "$FZFLET_JIRA_URL/rest/api/2/search?startAt=$current&maxResult=$batch&fields=issuetype,project,summary,description,assignee&jql=$FZFLET_JIRA_QUERY"`
+    else
+        result=`curl -s -u "$FZFLET_JIRA_USER:$FZFLET_JIRA_PASSWORD" "$FZFLET_JIRA_URL/rest/api/2/search?startAt=$current&maxResult=$batch&fields=issuetype,project,summary,description,assignee&jql=$FZFLET_JIRA_QUERY"`
+    fi
 
     if [ $? -ne 0 ]; then
         echo quit

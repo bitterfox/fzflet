@@ -1,0 +1,4 @@
+# {1}: file path
+# {2}: line number
+export FZFLET_AG_OPEN_EDITOR="emacs +{2} {1} &"
+export FZFLET_AG_OPEN_IDE="~/bin/idea --line {2} {1}"

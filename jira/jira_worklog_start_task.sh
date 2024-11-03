@@ -15,5 +15,6 @@ echo "$start_time" >> ~/.wip_task
 
 if [ -f "$FZFLET_JIRA_GO_JIRA_PATH" ]; then
     $basedir/jira_login.sh > /dev/null
-    $FZFLET_JIRA_GO_JIRA_PATH -e $FZFLET_JIRA_URL -u $FZFLET_JIRA_USER view --gjq="fields.summary" $task >> ~/.wip_task
+
+    $FZFLET_JIRA_GO_JIRA_PATH -e $FZFLET_JIRA_URL view --gjq="fields.summary" $task >> ~/.wip_task
 fi

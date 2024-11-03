@@ -27,43 +27,53 @@ if [ ${FZFLET_JIRA_CONFIG:-0} -eq 0 ]; then
     done
     export FZFLET_JIRA_URL=$url
 
-    if [ -n "${FZFLET_JIRA_USER+1}" ]; then
-        user=$FZFLET_JIRA_USER
+    if [ -n "${FZFLET_JIRA_TOKEN+1}" ]; then
+        token=$FZFLET_JIRA_TOKEN
     else
-        user=$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_USER}")
+        token=$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_TOKEN}")
     fi
-    while [ -z "$user" ]; do
-        if [ "$FZFLET_JIRA_SKIP_PROMPT" == "true" ]; then
-            exit 1
-        fi
-
-        echo -n "Input username for $url> "
-        read user
-
-        if [ $? -ne 0 ]; then
-            exit 1
-        fi
-    done
-    export FZFLET_JIRA_USER=$user
-
-    if [ -n "${FZFLET_JIRA_PASSWORD+1}" ]; then
-        password=$FZFLET_JIRA_PASSWORD
+    if [ -n "$token" ]; then
+        export FZFLET_JIRA_TOKEN=$token
+        export JIRA_API_TOKEN=$token
     else
-        password=$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_PASSWORD}")
+        if [ -n "${FZFLET_JIRA_USER+1}" ]; then
+            user=$FZFLET_JIRA_USER
+        else
+            user=$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_USER}")
+        fi
+        while [ -z "$user" ]; do
+            if [ "$FZFLET_JIRA_SKIP_PROMPT" == "true" ]; then
+                exit 1
+            fi
+
+            echo -n "Input username for $url> "
+            read user
+
+            if [ $? -ne 0 ]; then
+                exit 1
+            fi
+        done
+        export FZFLET_JIRA_USER=$user
+
+        if [ -n "${FZFLET_JIRA_PASSWORD+1}" ]; then
+            password=$FZFLET_JIRA_PASSWORD
+        else
+            password=$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_PASSWORD}")
+        fi
+        while [ -z "$password" ]; do
+            if [ "$FZFLET_JIRA_SKIP_PROMPT" == "true" ]; then
+                exit 1
+            fi
+
+            echo -n "Input password for $url> "
+            read -s password
+
+            if [ $? -ne 0 ]; then
+                exit 1
+            fi
+        done
+        export FZFLET_JIRA_PASSWORD=$password
     fi
-    while [ -z "$password" ]; do
-        if [ "$FZFLET_JIRA_SKIP_PROMPT" == "true" ]; then
-            exit 1
-        fi
-
-        echo -n "Input password for $url> "
-        read -s password
-
-        if [ $? -ne 0 ]; then
-            exit 1
-        fi
-    done
-    export FZFLET_JIRA_PASSWORD=$password
 
     query_template=${FZFLET_JIRA_QUERY:-$(eval echo "\${FZFLET_JIRA_${FZFLET_JIRA_CONTEXT}_QUERY:-'assignee=${FZFLET_JIRA_USER}%20ORDER%20BY%20updated%20DESC'}")}
     export FZFLET_JIRA_QUERY=`envsubst <<< $query_template`

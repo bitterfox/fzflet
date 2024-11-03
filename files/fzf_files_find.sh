@@ -16,4 +16,12 @@ case "$FZFLET_FILES_FIND_TARGET" in
     "all") NEXT_FZFLET_FILES_FIND_TARGET="file" ;;
 esac
 
-$basedir/files_find.sh "$path" | fzf --header-first --header="Finding $FZFLET_FILES_FIND_TARGET" -m "$@" --query="$query" --bind "ctrl-t:execute-and-exit-on-success(FZFLET_FILES_FIND_TARGET=$NEXT_FZFLET_FILES_FIND_TARGET $0 \"$path\" {q} || exit 0)" --preview="$basedir/../preview/preview_path.sh $path/{}"
+$basedir/files_find.sh "$path" | fzf \
+  --header-first \
+  --header="Finding $FZFLET_FILES_FIND_TARGET" \
+  -m "$@" \
+  --query="$query" \
+  --bind "ctrl-t:execute-and-exit-on-success(FZFLET_FILES_FIND_TARGET=$NEXT_FZFLET_FILES_FIND_TARGET $0 \"$path\" {q} || exit 0)" \
+  --preview="$basedir/../preview/preview_path.sh $path/{}" \
+  --bind "ctrl-o:execute-silent(emacs $path/{} &)" \
+  --bind "alt-o:execute-silent(emacs $path/{} &)"
