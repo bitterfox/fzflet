@@ -33,7 +33,6 @@ if [[ "$@" == "." ]]; then
     ag_color_opts="$ag_color_opts --color-match=0;0"
 fi
 
-
 cat $cache_dir/line_cache | \
     sort -rnk 1 | awk '{print $2}' | awk '!seen[$0]++' | \
     ag_and $@ | \
